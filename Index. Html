@@ -1,0 +1,278 @@
+<header>
+    <h1 class="logo">AI Caption Generator</h1>
+    <p class="tagline">Free, Fast & Viral Instagram Captions</p>
+</header>
+
+<main>
+    <!-- Ad placeholder -->
+    <div class="ad-placeholder">Advertisement Space (728x90)</div>
+
+    <!-- Generator Tool -->
+    <section class="controls">
+        <div class="form-group">
+            <label for="postDescription">Describe your post or photo</label>
+            <textarea id="postDescription" placeholder="e.g., A beautiful sunset at the beach with friends, feeling grateful..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tone">Caption Tone</label>
+            <select id="tone">
+                <option value="funny">Funny 😂</option>
+                <option value="motivational">Motivational 💪</option>
+                <option value="romantic">Romantic ❤️</option>
+                <option value="professional">Professional 👔</option>
+                <option value="attitude">Attitude 😎</option>
+                <option value="viral" selected>Viral 🔥</option>
+                <option value="business">Business 📈</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="length">Caption Length</label>
+            <select id="length">
+                <option value="short">Short (1 line)</option>
+                <option value="medium" selected>Medium (2-3 lines)</option>
+                <option value="long">Long (Paragraph)</option>
+            </select>
+        </div>
+        <button class="btn-generate" id="generateBtn">Generate 5 Captions</button>
+    </section>
+
+    <!-- Results -->
+    <section class="results-section" id="resultsSection" style="display: none;">
+        <h2 class="section-title">Your Custom Instagram Captions</h2>
+        <div class="captions-container" id="captionsContainer">
+            <!-- Generated captions appear here -->
+        </div>
+    </section>
+
+    <!-- Ad placeholder -->
+    <div class="ad-placeholder">Advertisement Space (300x250)</div>
+
+    <!-- SEO Content -->
+    <section class="seo-content">
+        <h2>Free AI Instagram Caption Generator for Viral Posts</h2>
+        <p>Our <strong>AI Instagram Caption Generator</strong> is the ultimate tool for content creators, influencers, and businesses looking to enhance their social media presence. By leveraging intelligent algorithms, this free tool creates unique, engaging, and platform-optimized captions in seconds. Whether you're posting a selfie, a product shot, a travel photo, or a Reel, you'll get <strong>viral Instagram captions</strong> tailored to your desired tone and length.</p>
+
+        <p>Standing out on Instagram requires more than just great visuals; your caption drives engagement, tells a story, and encourages interactions. With our tool, you can generate <strong>free Instagram captions</strong> that feel human-written, include trending hashtags, and are sprinkled with relevant emojis. This boosts your post's appeal and increases the chances of appearing on the Explore page.</p>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is an AI Instagram Caption Generator?</h3>
+                <p>It's a smart tool that uses predefined templates and natural language patterns to create multiple caption options based on your description, chosen tone, and length. It mimics human creativity, saving you time and effort.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is this tool completely free?</h3>
+                <p>Yes, this AI caption generator is 100% free with no hidden costs, registration, or login required. You can generate unlimited captions directly in your browser.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I use these captions for Instagram Reels?</h3>
+                <p>Absolutely! The captions are optimized for all Instagram formats: posts, stories, Reels, and IGTV. The viral and engaging nature works perfectly for short-form video content.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Does it work without login?</h3>
+                <p>Yes, the tool is entirely frontend-based. No backend, no data storage, and no login. Your privacy is completely protected.</p>
+            </div>
+        </div>
+
+        <p>In today's competitive social media landscape, consistency and quality are key. This <strong>Instagram caption generator</strong> helps you maintain a steady flow of creative content. From <strong>funny Instagram captions</strong> to professional business quotes, the variety ensures your profile stays fresh and engaging. Start generating your perfect caption now and watch your engagement grow!</p>
+    </section>
+</main>
+
+<footer>
+    <p>© <span id="currentYear"></span> AI Instagram Caption Generator. All rights reserved. This is a frontend-only tool.</p>
+    <p style="margin-top: 10px; font-size: 0.8rem;">This tool uses templates and algorithms to generate captions. It does not store or share any user data.</p>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // DOM Elements
+    const generateBtn = document.getElementById('generateBtn');
+    const postDescription = document.getElementById('postDescription');
+    const toneSelect = document.getElementById('tone');
+    const lengthSelect = document.getElementById('length');
+    const resultsSection = document.getElementById('resultsSection');
+    const captionsContainer = document.getElementById('captionsContainer');
+    const themeToggle = document.getElementById('themeToggle');
+    const currentYearSpan = document.getElementById('currentYear');
+
+    // Set current year in footer
+    currentYearSpan.textContent = new Date().getFullYear();
+
+    // Theme Toggle
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        themeToggle.textContent = document.body.classList.contains('dark-theme') ? '☀️ Light' : '🌙 Dark';
+    });
+
+    // Caption Templates Database
+    const captionTemplates = {
+        funny: [
+            "Living my best life, or at least trying to remember where I left it. 😂\n\n#Funny #Life #Instagram",
+            "Proof that I do leave my house sometimes. 📸\n\n#Hilarious #Reels #Fun",
+            "This is what peak performance looks like. (Spoiler: It's messy) 🎉\n\n#Laugh #DailyFun #Viral"
+        ],
+        motivational: [
+            "The only limit is the one you set yourself. Go break it. 💪\n\n#Motivation #Success #Inspiration",
+            "Small steps every day lead to big results. Keep pushing! 🔥\n\n#Goals #Hustle #Win",
+            "Your future self will thank you for starting today. ✨\n\n#Inspire #DreamBig #Achieve"
+        ],
+        romantic: [
+            "In your smile, I find the sunshine that lights up my world. ❤️🌞\n\n#Love #Romance #CoupleGoals",
+            "Every moment with you feels like a beautiful dream. 🌙✨\n\n#TogetherForever #Soulmate #LoveStory",
+            "You are my favorite hello and my hardest goodbye. 💕\n\n#LoveYou #Relationship #Romantic"
+        ],
+        professional: [
+            "Delivering excellence, one project at a time. 👔\n\n#Professional #Career #Business",
+            "Innovation meets dedication. Proud of the team! 🚀\n\n#Work #Success #Leadership",
+            "Networking, growing, and achieving milestones. 📈\n\n#Corporate #Entrepreneur #Growth"
+        ],
+        attitude: [
+            "I don't follow trends, I set them. 😎\n\n#Attitude #Confident #Boss",
+            "My vibe attracts my tribe. Period. ✌️\n\n#Cool #Independent #Swag",
+            "Not everyone's cup of tea, and that's perfectly fine. 🍵\n\n#SelfLove #Unique #Fearless"
+        ],
+        viral: [
+            "This stopped me in my tracks. 🤯\n\nDouble tap if it grabs you too! 👇\n\n#Viral #Trending #Reels #Explore",
+            "POV: You just found your new favorite account. 😉\n\nFollow for more! 🔥\n\n#Instagram #ViralPost #MustSee",
+            "Tag someone who needs to see this! 🏷️\n\nShare to your story! 📲\n\n#Trend #Challenge #SocialMedia"
+        ],
+        business: [
+            "Turning ideas into income. 💰\n\n#Business #Entrepreneur #Startup",
+            "Your brand is what people say about you when you're not in the room. 🏢\n\n#Marketing #Branding #Success",
+            "Revenue is vanity, profit is sanity. 📊\n\n#Finance #SmallBusiness #Growth"
+        ]
+    };
+
+    // Hashtag pools
+    const hashtags = {
+        general: ["#instagram", "#instagood", "#photooftheday", "#socialmedia"],
+        funny: ["#funny", "#humor", "#lol", "#comedy"],
+        motivational: ["#motivation", "#inspiration", "#success", "#mindset"],
+        romantic: ["#love", "#romance", "#couple", "#relationship"],
+        professional: ["#professional", "#career", "#business", "#networking"],
+        attitude: ["#attitude", "#confidence", "#swag", "#selflove"],
+        viral: ["#viral", "#trending", "#reels", "#explorepage", "#fyp"],
+        business: ["#business", "#entrepreneur", "#marketing", "#startup"]
+    };
+
+    // Emoji mapping
+    const toneEmojis = {
+        funny: "😂",
+        motivational: "💪",
+        romantic: "❤️",
+        professional: "👔",
+        attitude: "😎",
+        viral: "🔥",
+        business: "📈"
+    };
+
+    // Length modifiers
+    const lengthModifiers = {
+        short: (caption) => caption.split('\n')[0],
+        medium: (caption) => caption,
+        long: (caption) => caption + "\n\n" + "Sometimes the longest journeys bring the greatest rewards. Never underestimate the power of consistency and passion in everything you do. Let's keep shining! 🌟"
+    };
+
+    // Generate captions function
+    function generateCaptions() {
+        const description = postDescription.value.trim();
+        const tone = toneSelect.value;
+        const length = lengthSelect.value;
+
+        // If no description, use a fallback
+        const userInput = description || "a great moment worth sharing";
+
+        // Clear previous results
+        captionsContainer.innerHTML = '';
+        resultsSection.style.display = 'none';
+
+        // Check for input
+        if (!description) {
+            alert("Please describe your post for better captions!");
+            postDescription.focus();
+            return;
+        }
+
+        // Get base templates for selected tone
+        const baseTemplates = [...captionTemplates[tone]];
+        const emoji = toneEmojis[tone];
+
+        // Generate 5 captions
+        for (let i = 0; i < 5; i++) {
+            // Pick a random template (or cycle)
+            const template = baseTemplates[i % baseTemplates.length];
+
+            // Personalize with user input
+            let caption = template.replace(/\.$/, ''); // Remove period if exists
+            caption += `\n\nCapturing the essence of: "${description.substring(0, 50)}${description.length > 50 ? '...' : ''}" ${emoji}`;
+
+            // Apply length modifier
+            caption = lengthModifiers[length](caption);
+
+            // Add hashtags
+            const toneHashtags = hashtags[tone];
+            const generalHashtags = hashtags.general;
+            const allHashtags = [...toneHashtags, ...generalHashtags].slice(0, 5).join(' ');
+            caption += `\n\n${allHashtags}`;
+
+            // Create card
+            const card = document.createElement('div');
+            card.className = 'caption-card';
+            card.style.animationDelay = `${i * 0.1}s`;
+
+            const captionText = document.createElement('div');
+            captionText.className = 'caption-text';
+            captionText.textContent = caption;
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'btn-copy';
+            copyBtn.innerHTML = '📋 Copy Caption';
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(caption).then(() => {
+                    copyBtn.textContent = '✅ Copied!';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.textContent = '📋 Copy Caption';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+
+            card.appendChild(captionText);
+            card.appendChild(copyBtn);
+            captionsContainer.appendChild(card);
+        }
+
+        // Show results with animation
+        resultsSection.style.display = 'block';
+        setTimeout(() => {
+            window.scrollTo({
+                top: resultsSection.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }, 300);
+    }
+
+    // Event Listeners
+    generateBtn.addEventListener('click', generateCaptions);
+
+    // Allow Enter key to generate (with Ctrl/Cmd)
+    postDescription.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            generateCaptions();
+        }
+    });
+
+    // Pre-fill with example on focus if empty
+    postDescription.addEventListener('focus', function() {
+        if (this.value.trim() === '') {
+            this.value = 'A beautiful sunset at the beach with friends, feeling grateful...';
+        }
+    });
+
+    // Initialize with a dark theme preference if user prefers
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark-theme');
+        themeToggle.textContent = '☀️ Light';
+    }
+</script>
